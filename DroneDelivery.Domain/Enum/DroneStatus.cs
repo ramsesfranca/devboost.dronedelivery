@@ -5,6 +5,7 @@
         Livre = 1,
         EmManutencao = 2,
         EmEntrega = 3,
-        EmCarga = 4
+        EmCarga = 4,
+        ApguardandoPeido = 5
     }
 }

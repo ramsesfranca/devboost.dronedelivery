@@ -1,27 +1,26 @@
 ﻿using DroneDelivery.Domain.Core;
 using DroneDelivery.Domain.Enum;
 using System;
+using System.Collections.Generic;
 
 namespace DroneDelivery.Domain.Entidades
 {
     public class Drone : EntidadeBase<Guid>
     {
 
-        public double Capacidade { get; private set; }
+        public double Capacidade { get; }
 
-        public double Velocidade { get; private set; }
+        public double Velocidade { get; }
 
-        public double Autonomia { get; private set; }
+        public double Autonomia { get; }
 
-        public double Carga { get; private set; }
+        public double Carga { get; }
 
         public DateTime? HoraCarregamento { get; private set; }
 
-        public Pedido Pedido { get; set; }
+        public ICollection<Pedido> Pedidos { get; set; }
 
         public DroneStatus Status { get; set; }
-
-        protected Drone() { }
 
         public Drone(Guid id, double capacidade, double velocidade, double autonomia, double carga, DroneStatus status)
         {

@@ -20,11 +20,10 @@ namespace DroneDelivery.Application.Services
             _mapper = mapper;
         }
 
-        public IMapper Mapper { get; }
-
         public async Task AdicionarAsync(DroneModel droneModel)
         {
             var drone = _mapper.Map<DroneModel, Drone>(droneModel);
+
             await _unitOfWork.Drones.AdicionarAsync(drone);
             await _unitOfWork.SaveAsync();
         }
@@ -55,6 +54,7 @@ namespace DroneDelivery.Application.Services
             var drone = _mapper.Map<DroneModel, Drone>(droneModel);
 
             _unitOfWork.Drones.Remover(drone);
+
             await _unitOfWork.SaveAsync();
         }
 
@@ -63,7 +63,5 @@ namespace DroneDelivery.Application.Services
             await _unitOfWork.Drones.RemoverAsync(id);
             await _unitOfWork.SaveAsync();
         }
-
-
     }
 }

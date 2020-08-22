@@ -25,21 +25,6 @@ namespace DroneDelivery.Api.Controllers
         }
 
 
-        /// <summary>
-        /// Criar um pedido
-        /// </summary>
-        /// <remarks>
-        /// Sample request:
-        ///
-        ///     POST /pedido
-        ///     {
-        ///        "peso": 10,
-        ///        "latitude": -23.5753639,
-        ///        "longitude": -46.692417
-        ///     }
-        ///
-        /// </remarks>        
-        /// <param name="pedidoModel"></param>  
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -52,7 +37,5 @@ namespace DroneDelivery.Api.Controllers
 
             return Ok();
         }
-
-
     }
 }

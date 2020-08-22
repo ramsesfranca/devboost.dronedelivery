@@ -7,18 +7,15 @@ namespace DroneDelivery.Domain.Entidades
 {
     public class Pedido : EntidadeBase<Guid>
     {
-        public double Peso { get; private set; }
+        public double Peso { get; }
 
-        public DateTime DataPedido { get; private set; }
-
-        public double Latitude { get; private set; }
-        public double Longitude { get; private set; }
+        public DateTime DataPedido { get; }
+        public double Latitude { get; }
+        public double Longitude { get; }
         public PedidoStatus Status { get; private set; }
 
         public Guid? DroneId { get; set; }
         public Drone Drone { get; set; }
-
-        protected Pedido() { }
 
         public Pedido(double peso, DateTime dataPedido, double latitude, double longitude, PedidoStatus status)
         {
@@ -43,20 +40,17 @@ namespace DroneDelivery.Domain.Entidades
         public bool ValidarDistanciaEntrega(double latitudeInicial, double longitudeInicial, double velocidadeDrone, double autonomiaDrone)
         {
             double distance = GeoCalculator.GetDistance(latitudeInicial, longitudeInicial, Latitude, Longitude, 1, DistanceUnit.Meters);
+
             if (distance <= 0)
+            {
                 return false;
+            }
 
             //velocidade em m/s
             //T = d / v
             var tempoEmMinutos = ((distance * 2) / velocidadeDrone) / 60;
 
-            if (tempoEmMinutos > autonomiaDrone)
-                return false;
-
-            return true;
+            return !(tempoEmMinutos > autonomiaDrone);
         }
-
-
-
     }
 }

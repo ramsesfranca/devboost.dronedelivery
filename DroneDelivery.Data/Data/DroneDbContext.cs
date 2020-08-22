@@ -5,7 +5,8 @@ namespace DroneDelivery.Data.Data
 {
     public class DroneDbContext : DbContext
     {
-        public DroneDbContext(DbContextOptions<DroneDbContext> options) : base(options)
+        public DroneDbContext(DbContextOptions<DroneDbContext> options)
+            : base(options)
         {
 
         }

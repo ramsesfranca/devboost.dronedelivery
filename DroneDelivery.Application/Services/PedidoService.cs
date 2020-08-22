@@ -4,6 +4,7 @@ using DroneDelivery.Application.Models;
 using DroneDelivery.Data.Repositorios.IRepository;
 using DroneDelivery.Domain.Entidades;
 using DroneDelivery.Domain.Enum;
+using DroneDelivery.Utility;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -21,28 +22,35 @@ namespace DroneDelivery.Application.Services
             _mapper = mapper;
         }
 
-        public IMapper Mapper { get; }
-
         public async Task<bool> AdicionarAsync(PedidoModel pedidoModel)
         {
             var pedido = _mapper.Map<PedidoModel, Pedido>(pedidoModel);
 
-            if (!pedido.ValidarPesoPedido(Utility.Utils.CARGA_MAXIMA))
+            if (!pedido.ValidarPesoPedido(Utils.CARGA_MAXIMA))
+            {
                 return false;
+            }
 
             // temos que procurar drones disponiveis
             Drone droneDisponivel = null;
 
             var drones = await _unitOfWork.Drones.ObterAsync();
+
             foreach (var drone in drones)
             {
-                var droneTemAutonomia = pedido.ValidarDistanciaEntrega(Utility.Utils.LATITUDE_INICIAL, Utility.Utils.LONGITUDE_INICIAL, drone.Velocidade, drone.Autonomia);
+                var droneTemAutonomia = pedido.ValidarDistanciaEntrega(Utils.LATITUDE_INICIAL, Utils.LONGITUDE_INICIAL, drone.Velocidade, drone.Autonomia);
+
                 if (!droneTemAutonomia)
+                {
                     return false;
+                }
 
                 var droneAceitaPeso = drone.VerificarDroneAceitaOPesoPedido(pedido.Peso);
+
                 if (!droneAceitaPeso)
+                {
                     return false;
+                }
 
                 if (drone.Status == DroneStatus.Livre)
                 {
@@ -87,6 +95,7 @@ namespace DroneDelivery.Application.Services
             var pedido = _mapper.Map<PedidoModel, Pedido>(pedidoModel);
 
             _unitOfWork.Pedidos.Remover(pedido);
+
             await _unitOfWork.SaveAsync();
         }
 

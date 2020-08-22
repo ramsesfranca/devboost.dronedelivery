@@ -8,7 +8,6 @@ namespace DroneDelivery.Application.Models
 
         public string Situacao { get; set; }
 
-        public Guid PedidoId { get; set; }
-
+        //public Guid PedidoId { get; set; }
     }
 }

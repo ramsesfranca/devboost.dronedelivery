@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using DroneDelivery.Application.Interfaces;
+﻿using DroneDelivery.Application.Interfaces;
 using DroneDelivery.Application.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace DroneDelivery.Api.Controllers
 {

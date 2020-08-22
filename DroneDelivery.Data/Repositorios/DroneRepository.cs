@@ -25,7 +25,7 @@ namespace DroneDelivery.Data.Repositorios
 
         public async Task<IEnumerable<Drone>> ObterAsync()
         {
-            return await _context.Drones.Include(x => x.Pedido).ToListAsync();
+            return await _context.Drones.Include(x => x.Pedidos).ToListAsync();
         }
 
         public async Task<Drone> ObterAsync(Guid id)
@@ -43,7 +43,5 @@ namespace DroneDelivery.Data.Repositorios
         {
             _context.Remove(drone);
         }
-
-
     }
 }
